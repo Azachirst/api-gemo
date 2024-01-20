@@ -31,7 +31,7 @@ export const createTask = async (req, res) => {
     try {
         const { nombre_secuencia, Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado } = req.body;
         const [result] = await pool.query(
-          "INSERT INTO Gemo_secuencias(nombre_secuencia, Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO Gemo_secuencias(nombre_secuencia, Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [nombre_secuencia, Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado ]
         );
         res.json({
