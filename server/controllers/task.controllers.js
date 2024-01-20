@@ -185,7 +185,7 @@ export const createMovil = async (req, res) => {
       const { nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil} = req.body;
       const [result] = await pool.query(
         "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil ) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil ]
+        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, francos, inicio, fin ]
       );
       res.json({
         id_movil: result.insertId,
