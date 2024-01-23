@@ -4,7 +4,7 @@ import pool from "../db.js"
 export const getTasks = async (req, res) => {
     try {
         const [result] = await pool.query(
-          "SELECT * FROM Gemo_secuencias"
+          "SELECT * FROM Gemo_secuencias ORDER BY jornada"
         );
         res.json(result);
       } catch (error) {
@@ -29,21 +29,23 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
     try {
-      const { nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin} = req.body;
-      const [result] = await pool.query(
-        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ]
+        const { dia_semana, estado, inicio, fin, jornada, movil, next, localidad_movil, tipo_movil, base_movil } = req.body;
+        const [result] = await pool.query(
+          "INSERT INTO Gemo_secuencias(dia_semana, estado, inicio, fin, jornada, movil, next, localidad_movil, tipo_movil, base_movil ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          [dia_semana, estado, inicio, fin, jornada, movil, next, localidad_movil, tipo_movil, base_movil ]
         );
         res.json({
           id_secuencia: result.insertId,
-          nombre_secuencia,
-          Domingo, 
-          Lunes,
-          Martes,
-          Miercoles,
-          Jueves,
-          Viernes,
-          Sabado
+          dia_semana,
+          estado, 
+          inicio,
+          fin,
+          jornada,
+          movil,
+          next, 
+          localidad_movil, 
+          tipo_movil,
+          base_movil,
         });
       } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -167,7 +169,7 @@ export const getMoviles = async (req, res) => {
 
 export const getMovil = async (req, res) => {
   try {
-      const [result] = await pool.query("SELECT * FROM Gemo_movil WHERE id_movil = ?", [
+      const [result] = await pool.query("SELECT * FROM Gemo_moviles WHERE id_movil = ?", [
         req.params.id,
       ]);
   
@@ -182,10 +184,10 @@ export const getMovil = async (req, res) => {
 
 export const createMovil = async (req, res) => {
   try {
-      const { nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, francos, inicio, fin} = req.body;
+      const { nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin} = req.body;
       const [result] = await pool.query(
-        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, francos, inicio, fin ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, francos, inicio, fin ]
+        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ]
       );
       res.json({
         id_movil: result.insertId,
