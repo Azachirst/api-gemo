@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import{getTasks, getTask, createTask, updateTask, deleteTask, getMoviles, getMovil, createMovil, updateMovil, deleteMovil} from '../controllers/task.controllers.js'
+import{getTasks, getTask, createTask, updateTask, deleteTask, getMoviles, getMovil, createMovil, updateMovil, deleteMovil, deleteMoviles} from '../controllers/task.controllers.js'
 
 const router = Router();
 
@@ -26,6 +26,8 @@ router.post('/movil', createMovil)
 router.put('/movil/:id', updateMovil)
 
 router.delete('/movil/:id', deleteMovil)
+
+router.delete('/deletem', deleteMoviles)
 
 
 export default router;
