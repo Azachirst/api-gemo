@@ -111,10 +111,10 @@ export const getMovil = async (req, res) => {
 
 export const createMovil = async (req, res) => {
   try {
-      const { nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin} = req.body;
+      const { nro_movil, tipo_movil, localidad_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad} = req.body;
       const [result] = await pool.query(
-        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [nro_movil, tipo_movil, localidad_movil, zona_movil, base_movil,secuencia_movil, jornada_movil, franco1, franco2, inicio, fin ]
+        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [nro_movil, tipo_movil, localidad_movil, base_movil,secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ]
       );
       res.json({
         id_movil: result.insertId,
@@ -147,6 +147,18 @@ export const deleteMovil = async (req, res) => {
   
       if (result.affectedRows === 0)
         return res.status(404).json({ message: "movil no encontrado" });
+  
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+}
+
+
+export const deleteMoviles = async (req, res) => {
+  try {
+      const [result] = await pool.query("TRUNCATE Gemo_moviles");
+  
   
       return res.sendStatus(204);
     } catch (error) {
