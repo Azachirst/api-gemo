@@ -111,10 +111,10 @@ export const getMovil = async (req, res) => {
 
 export const createMovil = async (req, res) => {
   try {
-      const { nro_movil, tipo_movil, localidad_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad} = req.body;
+      const { nro_movil, tipo_movil, localidad_movil, base_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad} = req.body;
       const [result] = await pool.query(
-        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, base_movil, secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [nro_movil, tipo_movil, localidad_movil, base_movil,secuencia_movil, jornada_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ]
+        "INSERT INTO Gemo_moviles(nro_movil, tipo_movil, localidad_movil, base_movil, franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [nro_movil, tipo_movil, localidad_movil, base_movil,franco1, franco2, inicio, fin, estado, ejecutivo, carros, capacidad ]
       );
       res.json({
         id_movil: result.insertId,
